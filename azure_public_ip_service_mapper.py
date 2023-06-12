@@ -1,5 +1,6 @@
 import ipaddress
 import json
+import os
 import sys
 
 ip_address=sys.argv[1]
@@ -10,9 +11,11 @@ except:
     print("ERROR: IP Address {} is not valid".format(ip_address))
     sys.exit(1)
 
+json_ip_files = [file_name for file_name in os.listdir('.') if 'ServiceTags_Public_20' in file_name ]
+json_ip_files.sort(reverse=True)
+latest_json_ip_file = json_ip_files[0]
 
-ip_address_list_file="ServiceTags_Public_20220919.json"
-file_pointer = open(ip_address_list_file)
+file_pointer = open(latest_json_ip_file)
 json_data = json.load(file_pointer)
 
 ip_address_range_list=[]
